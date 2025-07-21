@@ -1,0 +1,470 @@
+[
+    {
+        "task_id": "123456",
+        "chat_id": "禾饭",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234560",
+        "chat_id": "快递测试群5037",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234561",
+        "chat_id": "王女士专属快递服务群2467",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234562",
+        "chat_id": "李女士专属快递服务群8670",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234563",
+        "chat_id": "吴女士专属快递服务群3883",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234564",
+        "chat_id": "张女士专属快递服务群6181",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234565",
+        "chat_id": "张女士专属快递服务群9309",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234566",
+        "chat_id": "Lsh2专属服务群0380",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234567",
+        "chat_id": "初专属服务群6880",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234568",
+        "chat_id": "灵秀专属服务群0189",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "1234569",
+        "chat_id": "李霖专属服务群6095",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345610",
+        "chat_id": "XIANXIAN专属服务群5897",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345611",
+        "chat_id": "Jiang专属服务群2743",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345612",
+        "chat_id": "Sunshine专属服务群0119",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345613",
+        "chat_id": "bierewo专属服务群6893",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345614",
+        "chat_id": "晴空万里专属服务群6338",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345615",
+        "chat_id": "珍爱一生专属服务群0950",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345616",
+        "chat_id": "晶专属服务群2952",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345617",
+        "chat_id": "黏性专属服务群0662",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345618",
+        "chat_id": "惠兰专属服务群1449",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345619",
+        "chat_id": "冰淇林专属服务群2909",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345620",
+        "chat_id": "瑞凤专属服务群4506",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345621",
+        "chat_id": "州专属服务群0987",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345622",
+        "chat_id": "Z专属服务群0533",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345623",
+        "chat_id": "toki专属服务群5267",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345624",
+        "chat_id": "Cassiel.专属服务群6011",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345625",
+        "chat_id": "芝士球专属服务群9655",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345626",
+        "chat_id": "阿海专属服务群0773",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345627",
+        "chat_id": "？专属服务群9607",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345628",
+        "chat_id": "HHR专属服务群0550",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345629",
+        "chat_id": "欧碧珠专属服务群7636",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345630",
+        "chat_id": "chb专属服务群5535",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345631",
+        "chat_id": "xx专属服务群6680",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345632",
+        "chat_id": "容儿专属服务群6680",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345633",
+        "chat_id": "莜莜专属服务群0747",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345634",
+        "chat_id": "谢先生专属服务群1031",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345635",
+        "chat_id": "燕惠专属服务群3469",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345636",
+        "chat_id": "明专属服务群7984",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345637",
+        "chat_id": "Al专属服务群4096",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345638",
+        "chat_id": "月夜专属服务群5512",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345639",
+        "chat_id": "ICEINKER专属服务群8376",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345640",
+        "chat_id": "扑满专属服务群8517",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345641",
+        "chat_id": "小蜜蜂专属服务群1598",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345642",
+        "chat_id": "初尘专属服务群3985",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345643",
+        "chat_id": "柠檬专属服务群7876",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345644",
+        "chat_id": "略专属服务群0298",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345645",
+        "chat_id": "玲玲专属服务群6195",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345646",
+        "chat_id": "吉祥物专属服务群9218",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345647",
+        "chat_id": "简单专属服务群7034",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345648",
+        "chat_id": "张建勇专属服务群1200",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345649",
+        "chat_id": "小飞丁专属服务群1003",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    },
+    {
+        "task_id": "12345650",
+        "chat_id": "曾先生快递专属服务群5535",
+        "content": "取件码",
+        "schedule_type": "cron",
+        "schedule_time": "*/2 * * * *",
+        "interval": null,
+        "is_active": true
+    }
+]

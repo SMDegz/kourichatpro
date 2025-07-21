@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高级加密解密工具</title>
+    <script src="../static/js/tailwindcss.js"></script>
+    <link href="../static/css/awesome.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#6366F1',
+                        dark: '#1E293B',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .content-auto {
+                content-visibility: auto;
+            }
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .bg-gradient-primary {
+                background: linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+            }
+            .transition-custom {
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .animate-float {
+                animation: float 3s ease-in-out infinite;
+            }
+            @keyframes float {
+                0% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+                100% { transform: translateY(0px); }
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <nav class="bg-white shadow-md fixed w-full z-10 transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fa fa-lock text-primary text-2xl"></i>
+                <h1 class="text-xl font-bold text-gray-800">高级加密解密工具</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#" class="text-gray-600 hover:text-primary transition-custom">首页</a>
+                <a href="#" class="text-gray-600 hover:text-primary transition-custom">文档</a>
+                <a href="#" class="text-gray-600 hover:text-primary transition-custom">关于</a>
+                <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-custom shadow-md hover:shadow-lg">
+                    <i class="fa fa-github mr-2"></i>查看源码
+                </button>
+            </div>
+            <button class="md:hidden text-gray-600 focus:outline-none" id="menu-toggle">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+        <!-- 移动端菜单 -->
+        <div class="md:hidden hidden bg-white w-full border-t" id="mobile-menu">
+            <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+                <a href="#" class="text-gray-600 hover:text-primary py-2 transition-custom">首页</a>
+                <a href="#" class="text-gray-600 hover:text-primary py-2 transition-custom">文档</a>
+                <a href="#" class="text-gray-600 hover:text-primary py-2 transition-custom">关于</a>
+                <button class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-lg transition-custom shadow-md hover:shadow-lg">
+                    <i class="fa fa-github mr-2"></i>查看源码
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="flex-grow pt-24 pb-12">
+        <div class="container mx-auto px-4">
+            <!-- 标题部分 -->
+            <div class="text-center mb-12">
+                <h2 class="text-[clamp(2rem,5vw,3.5rem)] font-bold text-gray-800 mb-4 text-shadow">
+                    高级加密解密工具
+                </h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-lg">
+                    安全、高效的文本加密解密解决方案，支持多种字符和链接生成
+                </p>
+            </div>
+
+            <!-- 功能卡片 -->
+            <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl overflow-hidden">
+                <div class="bg-gradient-primary text-white p-6">
+                    <h3 class="text-2xl font-bold mb-2">加密解密中心</h3>
+                    <p class="text-white/80">输入任意文本进行加密解密操作</p>
+                </div>
+                
+                <div class="p-6">
+                    <!-- 选项卡 -->
+                    <div class="flex border-b mb-6">
+                        <button class="tab-button active px-6 py-3 font-medium text-primary border-b-2 border-primary" data-tab="encrypt">
+                            <i class="fa fa-lock mr-2"></i>加密
+                        </button>
+                        <button class="tab-button px-6 py-3 font-medium text-gray-500 hover:text-gray-700" data-tab="decrypt">
+                            <i class="fa fa-unlock mr-2"></i>解密
+                        </button>
+                    </div>
+                    
+                    <!-- 加密面板 -->
+                    <div class="tab-content active" id="encrypt-panel">
+                        <div class="mb-6">
+                            <label for="encrypt-input" class="block text-gray-700 font-medium mb-2">
+                                输入明文:
+                            </label>
+                            <div class="relative">
+                                <textarea id="encrypt-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-custom" placeholder="请输入要加密的文本" rows="4"></textarea>
+                                <div class="absolute right-3 top-3 text-gray-400 text-sm" id="encrypt-count">
+                                    0/无限
+                                </div>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2">
+                                <i class="fa fa-info-circle mr-1"></i>支持字母、数字和各种字符
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-wrap justify-center gap-4 mb-6">
+                            <button id="encrypt-btn" class="bg-primary hover:bg-primary/90 text-white px-6 py-3 rounded-lg transition-custom shadow-md hover:shadow-lg flex items-center">
+                                <i class="fa fa-lock mr-2"></i>加密
+                            </button>
+                            <button id="generate-link-btn" class="bg-accent hover:bg-accent/90 text-white px-6 py-3 rounded-lg transition-custom shadow-md hover:shadow-lg flex items-center">
+                                <i class="fa fa-link mr-2"></i>生成链接
+                            </button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="encrypt-output" class="block text-gray-700 font-medium mb-2">
+                                加密结果:
+                            </label>
+                            <div class="relative">
+                                <textarea id="encrypt-output" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" placeholder="加密结果将显示在这里" rows="4" readonly></textarea>
+                                <button id="copy-encrypt" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 focus:outline-none transition-custom">
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div id="link-result" class="mb-6 hidden">
+                            <label class="block text-gray-700 font-medium mb-2">
+                                生成的链接:
+                            </label>
+                            <div class="relative">
+                                <input type="text" id="generated-link" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" placeholder="链接将显示在这里" readonly>
+                                <button id="copy-link" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 focus:outline-none transition-custom">
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 解密面板 -->
+                    <div class="tab-content hidden" id="decrypt-panel">
+                        <div class="mb-6">
+                            <label for="decrypt-input" class="block text-gray-700 font-medium mb-2">
+                                输入密文:
+                            </label>
+                            <div class="relative">
+                                <textarea id="decrypt-input" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary transition-custom" placeholder="请输入要解密的文本" rows="4"></textarea>
+                                <div class="absolute right-3 top-3 text-gray-400 text-sm" id="decrypt-count">
+                                    0/无限
+                                </div>
+                            </div>
+                            <p class="text-gray-500 text-sm mt-2">
+                                <i class="fa fa-info-circle mr-1"></i>请输入通过本工具加密的密文
+                            </p>
+                        </div>
+                        
+                        <div class="flex justify-center mb-6">
+                            <button id="decrypt-btn" class="bg-secondary hover:bg-secondary/90 text-white px-6 py-3 rounded-lg transition-custom shadow-md hover:shadow-lg flex items-center">
+                                <i class="fa fa-unlock mr-2"></i>解密
+                            </button>
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label for="decrypt-output" class="block text-gray-700 font-medium mb-2">
+                                解密结果:
+                            </label>
+                            <div class="relative">
+                                <textarea id="decrypt-output" class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50" placeholder="解密结果将显示在这里" rows="4" readonly></textarea>
+                                <button id="copy-decrypt" class="absolute right-3 top-3 text-gray-500 hover:text-gray-700 focus:outline-none transition-custom">
+                                    <i class="fa fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fa fa-lock text-primary text-xl"></i>
+                        <span class="text-lg font-bold">高级加密解密工具</span>
+                    </div>
+                    <p class="text-gray-400 mt-2">
+                        安全、高效的文本加密解密解决方案
+                    </p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition-custom">
+                        <i class="fa fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-custom">
+                        <i class="fa fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-custom">
+                        <i class="fa fa-linkedin text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2025 高级加密解密工具. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // 导航栏滚动效果
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 10) {
+                navbar.classList.add('py-2', 'shadow-lg');
+                navbar.classList.remove('py-3', 'shadow-md');
+            } else {
+                navbar.classList.add('py-3', 'shadow-md');
+                navbar.classList.remove('py-2', 'shadow-lg');
+            }
+        });
+
+        // 移动端菜单切换
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // 选项卡切换
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                // 移除所有选项卡的活动状态
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active', 'text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.add('text-gray-500');
+                });
+                
+                // 添加当前选项卡的活动状态
+                button.classList.add('active', 'text-primary', 'border-b-2', 'border-primary');
+                button.classList.remove('text-gray-500');
+                
+                // 隐藏所有内容
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('active');
+                });
+                
+                // 显示当前内容
+                const tabId = button.getAttribute('data-tab');
+                document.getElementById(`${tabId}-panel`).classList.remove('hidden');
+                document.getElementById(`${tabId}-panel`).classList.add('active');
+            });
+        });
+
+        // 字符计数
+        document.getElementById('encrypt-input').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('encrypt-count').textContent = `${count}/无限`;
+        });
+
+        document.getElementById('decrypt-input').addEventListener('input', function() {
+            const count = this.value.length;
+            document.getElementById('decrypt-count').textContent = `${count}/无限`;
+        });
+
+        // 安全的Unicode转Base64函数
+        function unicodeToBase64(str) {
+            return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, 
+                function toSolidBytes(match, p1) {
+                    return String.fromCharCode('0x' + p1);
+            }));
+        }
+
+        // 安全的Base64转Unicode函数
+        function base64ToUnicode(str) {
+            return decodeURIComponent(atob(str).split('').map(function(c) {
+                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+            }).join(''));
+        }
+
+        // 高级加密函数 - 支持所有字符
+        function encrypt(text) {
+            if (!text) return '';
+            
+            const key = 0x1F; // 加密密钥
+            let encrypted = '';
+            
+            for (let i = 0; i < text.length; i++) {
+                const charCode = text.charCodeAt(i);
+                const encryptedCharCode = charCode ^ key; // 使用异或运算加密
+                encrypted += String.fromCharCode(encryptedCharCode);
+            }
+            
+            // 安全地转换为Base64编码以便于URL传输
+            return unicodeToBase64(encrypted);
+        }
+
+        // 高级解密函数
+        function decrypt(text) {
+            if (!text) return '';
+            
+            try {
+                const key = 0x1F; // 解密密钥，必须与加密密钥相同
+                const decryptedBase64 = base64ToUnicode(text);
+                let decrypted = '';
+                
+                for (let i = 0; i < decryptedBase64.length; i++) {
+                    const charCode = decryptedBase64.charCodeAt(i);
+                    const decryptedCharCode = charCode ^ key; // 使用异或运算解密
+                    decrypted += String.fromCharCode(decryptedCharCode);
+                }
+                
+                return decrypted;
+            } catch (e) {
+                return '解密失败：无效的密文';
+            }
+        }
+
+        // 加密按钮点击事件
+        document.getElementById('encrypt-btn').addEventListener('click', function() {
+            const input = document.getElementById('encrypt-input').value;
+            const output = document.getElementById('encrypt-output');
+            
+            // 添加按钮动画
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 500);
+            
+            // 执行加密
+            output.value = encrypt(input);
+            
+            // 隐藏链接结果
+            document.getElementById('link-result').classList.add('hidden');
+            
+            // 添加结果显示动画
+            output.classList.add('ring-2', 'ring-primary');
+            setTimeout(() => {
+                output.classList.remove('ring-2', 'ring-primary');
+            }, 1000);
+        });
+
+        // 生成链接按钮点击事件
+        document.getElementById('generate-link-btn').addEventListener('click', function() {
+            const input = document.getElementById('encrypt-input').value;
+            const encrypted = encrypt(input);
+            const linkOutput = document.getElementById('generated-link');
+            const linkResult = document.getElementById('link-result');
+            
+            if (!input) {
+                alert('请先输入要加密的文本');
+                return;
+            }
+            
+            // 添加按钮动画
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 500);
+            
+            // 生成链接
+            const baseUrl = 'www.localhost:8502/phone';
+            const encodedClientName = encodeURIComponent(encrypted);
+            const link = `${baseUrl}?clientName=${encodedClientName}`;
+            
+            linkOutput.value = link;
+            linkResult.classList.remove('hidden');
+            
+            // 添加结果显示动画
+            linkOutput.classList.add('ring-2', 'ring-accent');
+            setTimeout(() => {
+                linkOutput.classList.remove('ring-2', 'ring-accent');
+            }, 1000);
+        });
+
+        // 解密按钮点击事件
+        document.getElementById('decrypt-btn').addEventListener('click', function() {
+            const input = document.getElementById('decrypt-input').value;
+            const output = document.getElementById('decrypt-output');
+            
+            // 添加按钮动画
+            this.classList.add('animate-pulse');
+            setTimeout(() => {
+                this.classList.remove('animate-pulse');
+            }, 500);
+            
+            // 执行解密
+            output.value = decrypt(input);
+            
+            // 添加结果显示动画
+            output.classList.add('ring-2', 'ring-secondary');
+            setTimeout(() => {
+                output.classList.remove('ring-2', 'ring-secondary');
+            }, 1000);
+        });
+
+        // 复制功能
+        function copyToClipboard(elementId) {
+            const text = document.getElementById(elementId).value;
+            navigator.clipboard.writeText(text).then(() => {
+                // 复制成功提示
+                const button = document.querySelector(`#${elementId}`).nextElementSibling.querySelector('button');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fa fa-check"></i>';
+                button.classList.add('text-green-500');
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.classList.remove('text-green-500');
+                }, 2000);
+            }).catch(err => {
+                console.error('复制失败: ', err);
+            });
+        }
+
+        document.getElementById('copy-encrypt').addEventListener('click', () => copyToClipboard('encrypt-output'));
+        document.getElementById('copy-decrypt').addEventListener('click', () => copyToClipboard('decrypt-output'));
+        document.getElementById('copy-link').addEventListener('click', () => copyToClipboard('generated-link'));
+
+        // 从URL参数中自动填充解密内容
+        function checkUrlParams() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const clientName = urlParams.get('clientName');
+            
+            if (clientName) {
+                // 切换到解密面板
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active', 'text-primary', 'border-b-2', 'border-primary');
+                    btn.classList.add('text-gray-500');
+                });
+                
+                document.querySelector('[data-tab="decrypt"]').classList.add('active', 'text-primary', 'border-b-2', 'border-primary');
+                document.querySelector('[data-tab="decrypt"]').classList.remove('text-gray-500');
+                
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.add('hidden');
+                    content.classList.remove('active');
+                });
+                
+                document.getElementById('decrypt-panel').classList.remove('hidden');
+                document.getElementById('decrypt-panel').classList.add('active');
+                
+                // 填充密文并解密
+                document.getElementById('decrypt-input').value = clientName;
+                
+                // 延迟执行解密，以便用户看到动画效果
+                setTimeout(() => {
+                    document.getElementById('decrypt-btn').click();
+                }, 500);
+            }
+        }
+
+        // 页面加载完成后检查URL参数
+        window.addEventListener('DOMContentLoaded', checkUrlParams);
+    </script>
+</body>
+</html>
+    
