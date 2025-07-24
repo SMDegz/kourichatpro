@@ -29,6 +29,79 @@ class DBHandler:
         except Exception as e:
             logging.error(f'数据库连接失败: {str(e)}')
             raise
+    def select_dataLoop(self,conn,  conditions=None, order_by=None, limit=None,group_by=None, extract_field=None):
+        """查询数据库"""
+        try:
+            cursor = conn.cursor()
+            
+            # 构建SELECT语句
+            # 处理LIMIT参数，转换为TOP语法
+            limit_clause = f"TOP {limit}" if limit else ""
+            
+            # 构建SELECT语句，将TOP直接放在SELECT后面
+            sql = f"select * from [dbo].[CoreCmsParcelStorage] a where phone_number in (select hidephone from [dbo].[CoreCmsPhoneCompare])"                              
+            values = []
+            # 添加查询条件
+            if conditions:
+                where_conditions = []
+               
+                
+                for k, v in conditions:
+                    if isinstance(v, list):
+                        # 处理IN子句：生成多个?占位符
+                        placeholders = ", ".join(["?"] * len(v))
+                        where_conditions.append(f"{k} IN ({placeholders})")
+                        values.extend(v)  # 展开列表为多个值
+                    else:
+                        # 判断键是否包含"time"，决定使用>还是=
+                        operator = ">" if "time" in k.lower() else "="
+                        where_conditions.append(f"{k} {operator} ?")
+                        values.append(v)
+                
+                if where_conditions:
+                    sql += " AND ".join(where_conditions)
+            
+            # 添加排序
+            if order_by:
+                sql += f" ORDER BY {order_by}"
+                
+            print(sql)
+            
+            # 执行SELECT语句
+            if conditions:
+                cursor.execute(sql, list(values))
+            else:
+                cursor.execute(sql)
+                
+            # 获取查询结果
+            results = cursor.fetchall()
+            
+            print(results)
+            
+            if results:
+                if extract_field:
+                    # 获取列名
+                    columns = [desc[0] for desc in cursor.description]
+                    # 将结果转换为字典列表
+                    results_dict = [dict(zip(columns, row)) for row in results]
+                    # 通过列名提取字段值
+                    field_list = [row[extract_field] for row in results_dict]   
+                    return field_list
+                    
+                # 未指定分组字段或结果为空，直接返回原始结果
+                print(f"查询结果 ({len(results)} 条记录)")
+                for i, row in enumerate(results, 1):
+                    row_dict = dict(zip([column[0] for column in cursor.description], row))
+                    print(f"记录 {i}: {row_dict}")
+                    
+                return results
+            else:
+                return results
+            
+        except Exception as e:
+            print_status(f'查询失败: {str(e)}')
+            raise        
+    
             
     def select_data(self,conn, table_name, conditions=None, order_by=None, limit=None,group_by=None, extract_field=None):
         """查询数据库"""
@@ -167,7 +240,7 @@ class DBHandler:
                     # 构建SQL更新语句
                     sql = f"""
                     UPDATE {table_name}
-                    SET parcel_status = 1
+                    SET sendstatus = 0
                     WHERE phone_number = ? AND pickupcode = ?
                     """
                     print(sql)

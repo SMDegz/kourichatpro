@@ -816,6 +816,21 @@ class MessageHandler:
             command = content.split(' ')[0].lower()
             logger.debug(f"检测到命令: {command}")
 
+        if "轮询" in content:
+
+
+
+            self._send_message_with_dollar(content, chat_id)
+            return content
+
+        if "邻居们" in content:
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            file_path = os.path.join(current_dir, "2.png")  # 拼接路径
+            print(file_path)
+            self._send_message_with_dollar(content, chat_id)
+            self.wx.SendFiles(filepath=file_path, who=chat_id)
+            return content
+
         if "取件码" in content:
             timeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             output = f"📅 日期：{timeStr} \n\n"
@@ -833,7 +848,7 @@ class MessageHandler:
                 print(data_phone)
             
                 if len(data_phone) > 0:
-                    conditions_code=[("phone_number", data_phone),("parcel_status", 0),("storage_time", '2025-07-01 01:47:00.000')]
+                    conditions_code=[("phone_number", data_phone),("parcel_status", 0),("status", 1),("sendstatus", 1),("storage_time", '2025-07-22 01:47:00.000')]
                     print(conditions_code)
                     data_reesult = db_handler.select_data(conn, "CoreCmsParcelStorage",conditions_code,
                 group_by="phone_number",extract_field="pickupcode")
@@ -862,11 +877,11 @@ class MessageHandler:
                             
                             output += "────────────\n"
                             
-                        output += "\n尊敬的用户：试运行期间诚邀您提出建议，我们将据此完善功能与服务,如未找到快递请联系客服\n"
+                        output += "\n欢迎大家使用「码小弟」小程序，动动手指就能秒查取件码～\n"
                         print(output)
-                        current_dir = os.path.dirname(os.path.abspath(__file__))
-                        file_path = os.path.join(current_dir, "1.png")  # 拼接路径
-                        print(file_path)
+                        # current_dir = os.path.dirname(os.path.abspath(__file__))
+                        # file_path = os.path.join(current_dir, "1.png")  # 拼接路径
+                        # print(file_path)
                         # self.wx.SendFiles(filepath=file_path, who=chat_id)
                         self._send_message_with_dollar(output, chat_id)
             return content

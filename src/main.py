@@ -503,11 +503,29 @@ def sendMessageByList1(listen,content):
 def sendMessageByList(content):
     for listen in listen_list:
         print(listen)
+        wait_seconds = random.uniform(3, 8)
+        print(f"等待 {wait_seconds:.2f} 秒…")
+        time.sleep(wait_seconds)
+        print("等待结束，开始发送消息")
         message_handler._handle_text_message(
                     content=content,
                     chat_id=listen,
                     sender_name=listen,
                     username=listen,
+                    is_group=False
+                )
+
+def sendMessagePolling(content):
+    while(True):
+        wait_seconds = random.uniform(50, 70)
+        print(f"等待 {wait_seconds:.2f} 秒…")
+        time.sleep(wait_seconds)
+        print("等待结束，开始发送消息")
+        message_handler._handle_text_message(
+                    content=content,
+                    chat_id="",
+                    sender_name="",
+                    username="",
                     is_group=False
                 )
 
@@ -598,10 +616,10 @@ def main():
         os.environ["WXAUTO_LOG_PATH"] = os.path.join(automation_log_dir, "AutomationLog.txt")
 
         
+        # strPro = "亲爱的邻居们，因微信政策调整，取件码以后统一在「码小弟」小程序里查看（微信下拉→搜索即可，或者扫描下方二维码），动动手指就能秒查取件码～为了您的取件体验更顺畅，辛苦大家移步小程序，我们也在持续优化，有任何疑问群里@客服，随时为您服务！"
+        strPro = "取件码"
         
-        
-        
-        # sendMessageByList1("88888888",output)
+        sendMessageByList(strPro)
         
         # # 初始化微信监听
         # print_status("初始化微信监听...", "info", "BOT")
@@ -652,10 +670,10 @@ def main():
         # print("=" * 50)
 
         # # 初始化自动任务系统
-        auto_tasker = initialize_auto_tasksPro(message_handler)
-        if not auto_tasker:
-            print_status("自动任务系统初始化失败", "error", "ERROR")
-            return
+        # auto_tasker = initialize_auto_tasksPro(message_handler)
+        # if not auto_tasker:
+        #     print_status("自动任务系统初始化失败", "error", "ERROR")
+        #     return
 
         # 主循环
         while True:
