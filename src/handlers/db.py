@@ -1,5 +1,6 @@
 import logging
 import pyodbc
+from datetime import date
 from src.utils.console import print_status
 
 logger = logging.getLogger('main')
@@ -29,74 +30,66 @@ class DBHandler:
         except Exception as e:
             logging.error(f'数据库连接失败: {str(e)}')
             raise
-    def select_dataLoop(self,conn,  conditions=None, order_by=None, limit=None,group_by=None, extract_field=None):
+        
+    def update_dataLoop(self, conn, id):
+        try:
+            cursor = conn.cursor()
+            sql = f"""
+                    UPDATE CoreCmsParcelStorage
+                    SET sendstatus = 0
+                    WHERE id = {id}
+                    """
+            # 执行更新
+            cursor.execute(sql)
+            # 提交所有更新
+            conn.commit()
+            print(f"更新成功")
+            
+        except Exception as e:
+            conn.rollback()
+            logging.error(f"更新状态失败: {str(e)}")
+            raise
+        finally:
+            cursor.close()
+                
+    def select_dataLoop(self,conn):
         """查询数据库"""
         try:
             cursor = conn.cursor()
             
-            # 构建SELECT语句
-            # 处理LIMIT参数，转换为TOP语法
-            limit_clause = f"TOP {limit}" if limit else ""
+            today = date.today()
+            formatted_date = today.strftime('%Y-%m-%d')
+
             
             # 构建SELECT语句，将TOP直接放在SELECT后面
-            sql = f"select * from [dbo].[CoreCmsParcelStorage] a where phone_number in (select hidephone from [dbo].[CoreCmsPhoneCompare])"                              
-            values = []
-            # 添加查询条件
-            if conditions:
-                where_conditions = []
-               
-                
-                for k, v in conditions:
-                    if isinstance(v, list):
-                        # 处理IN子句：生成多个?占位符
-                        placeholders = ", ".join(["?"] * len(v))
-                        where_conditions.append(f"{k} IN ({placeholders})")
-                        values.extend(v)  # 展开列表为多个值
-                    else:
-                        # 判断键是否包含"time"，决定使用>还是=
-                        operator = ">" if "time" in k.lower() else "="
-                        where_conditions.append(f"{k} {operator} ?")
-                        values.append(v)
-                
-                if where_conditions:
-                    sql += " AND ".join(where_conditions)
-            
-            # 添加排序
-            if order_by:
-                sql += f" ORDER BY {order_by}"
-                
+            sql = f"""
+                SELECT DISTINCT  
+                    a.id,
+                    a.name,
+                    a.phone_number,
+                    a.pickupcode,
+                    a.parcel_status,
+                    a.storage_time,
+                    b.groupname
+                FROM [dbo].[CoreCmsParcelStorage] a
+                INNER JOIN [dbo].[CoreCmsPhoneCompare] b 
+                    ON a.phone_number = b.hidephone
+                WHERE 
+                    a.status = 1 
+                    AND a.sendstatus = 1 
+                    AND a.storage_time > '{formatted_date}'  -- 使用参数化查询
+                """                    
+           
             print(sql)
             
-            # 执行SELECT语句
-            if conditions:
-                cursor.execute(sql, list(values))
-            else:
-                cursor.execute(sql)
-                
+            cursor.execute(sql)
+
             # 获取查询结果
             results = cursor.fetchall()
             
-            print(results)
+            #print(results)
             
-            if results:
-                if extract_field:
-                    # 获取列名
-                    columns = [desc[0] for desc in cursor.description]
-                    # 将结果转换为字典列表
-                    results_dict = [dict(zip(columns, row)) for row in results]
-                    # 通过列名提取字段值
-                    field_list = [row[extract_field] for row in results_dict]   
-                    return field_list
-                    
-                # 未指定分组字段或结果为空，直接返回原始结果
-                print(f"查询结果 ({len(results)} 条记录)")
-                for i, row in enumerate(results, 1):
-                    row_dict = dict(zip([column[0] for column in cursor.description], row))
-                    print(f"记录 {i}: {row_dict}")
-                    
-                return results
-            else:
-                return results
+            return results
             
         except Exception as e:
             print_status(f'查询失败: {str(e)}')

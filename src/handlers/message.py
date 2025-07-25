@@ -808,7 +808,7 @@ class MessageHandler:
             # 使用正常的消息发送方式
             self._send_message_with_dollar(reply, chat_id)
 
-    def _handle_text_message(self, content, chat_id, sender_name, username, is_group):
+    def _handle_text_message(self, content, chat_id, sender_name, username, is_group, listen_list=[]):
         """处理普通文本消息"""
         # 检查是否是命令
         command = None
@@ -817,10 +817,22 @@ class MessageHandler:
             logger.debug(f"检测到命令: {command}")
 
         if "轮询" in content:
-
-
-
-            self._send_message_with_dollar(content, chat_id)
+            print(listen_list)
+            db_handler = DBHandler("测试")
+            if db_handler is not None:
+                conn = db_handler.connect_to_db()
+                dateList = db_handler.select_dataLoop(conn)
+                print(dateList)
+                for row in dateList:
+                    wait_seconds = random.uniform(10, 15)
+                    print(f"等待 {wait_seconds:.2f} 秒…")
+                    time.sleep(wait_seconds)
+                    # 直接解包元组中的每个字段
+                    id, name, phone, code, status, storage_time, group_name = row
+                    db_handler.update_dataLoop(conn,id)
+                    # 打印或处理每行数据
+                    messageStr = f"#码小弟  {code}({name})"
+                    self._send_message_with_dollar(messageStr, group_name)
             return content
 
         if "邻居们" in content:
